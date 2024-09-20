@@ -6,7 +6,7 @@ services:
     ports:
       - "1433:1433"
     healthcheck:
-      test: ["/opt/mssql-tools/bin/sqlcmd", "-H", "http://0.0.0.0:1433", "-U", "sa", "-P", "Bosch@123", "-d", "autotracelite", "-Q", "SELECT * FROM sys.objects"]
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -H http://0.0.0.0:1433 -U sa -P Bosch@123 -d autotracelite -Q 'SELECT * FROM sys.objects'"]
       interval: 15s
       timeout: 200s
       retries: 5
