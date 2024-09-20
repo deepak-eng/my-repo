@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  sqlledger:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Bosch@123", "-d", "autotracelite", "-Q", "SELECT * FROM sys.objects"]
+      interval: 15s
+      timeout: 200s
+      retries: 5
+    environment:
+      SA_PASSWORD: "Bosch@123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mysql-data:/var/opt/mssql/data
+
+volumes:
+  mysql-data:
